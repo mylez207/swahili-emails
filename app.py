@@ -18,20 +18,20 @@ def preprocess_text(text):
     return text
 
 # Streamlit UI
-st.title("📧 Swahili Email Spam Detector")
-st.markdown("Enter a Swahili message below and check if it's **SCAM** or **TRUST**.")
+st.title("📧 Swahili spam messages detector ")
+st.markdown("Enter a Swahili message below and check if it's **SPAM** or **HAM**.")
 
 email_input = st.text_area("✉️ Message", height=150)
 
-if st.button("🔍 Analyze"):
+if st.button("🔍 Check message"):
     if email_input.strip():
         cleaned = preprocess_text(email_input)
         vectorized = vectorizer.transform([cleaned])
         prediction = model.predict(vectorized)[0]
 
-        if prediction.lower() == "scam":
-            st.error("🚨 This message is classified as: **SCAM**")
+        if prediction.lower() == "spam":
+            st.error("🚨 This message is classified as: **SPAM**")
         else:
-            st.success("✅ This message is classified as: **TRUST**")
+            st.success("✅ This message is classified as: **HAM**")
     else:
         st.warning("Please enter a message first.")
